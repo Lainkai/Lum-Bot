@@ -165,7 +165,6 @@ def run_lum(autorestart=None):
                     break
 
     print("Lum has quit and said that %s" % CODES[code])
-
     if NORMIE_MODE:
         wait()
 
@@ -188,14 +187,23 @@ GIT_INSTALLED = verify_git()
 
 def main():
     play_intro()
-    while True:
-        resp = menu("Lum-Bot Launcher", {
+    if GIT_INSTALLED:
+        dic = {
             "start":"Start Lum-Bot",
             "restart": "Start Lum-Bot With Auto Restart in case of an Issue",
             "update" : "Update Lum-Bot",
             "exit" : "Exit the Launcher"
+        }
         
-        }, "Main Menu")
+    else:
+        dic = {
+            "start":"Start Lum-Bot",
+            "restart": "Start Lum-Bot With Auto Restart in case of an Issue",
+            "exit" : "Exit the Launcher"
+        
+        }
+    while True:
+        resp = menu("Lum-Bot Launcher", dic, "Main Menu")
         if resp == "start":
             run_lum()
         elif resp == "restart":
