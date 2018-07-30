@@ -3,6 +3,7 @@ import sys
 import subprocess
 import time
 import platform
+from collections import OrderedDict
 
 LAUNCHER_VERSION = "0.0.0a"
 BOT_VERSION = "0.0.0a"
@@ -14,7 +15,7 @@ IS_64BIT = platform.machine().endswith("64")
 NORMIE_MODE = not False #this will be replaced when I add arguments. 
 PYTHON_OK = sys.version_info >= (3,5)
 
-CODES = {0:"she is tired, and all is fine.", 26:"reality is a simulation, and this should have never happend.", 1:"she did not understand something. Everything is dying."}
+CODES = {0:"she is tired, and all is fine.", 26:"reality really is a simulation, and this should have never happend.", 1:"she did not understand something. Everything is dying."}
 
 HEADER =  "▓▓▓▓▓▒▒▒▒▒▒▒▒░░░░░░░░»────Lum-Bot────«░░░░░░░░▒▒▒▒▒▒▒▓▓▓▓▓▓\n"
 VERSION = "▓▓▓▓▓▒▒▒▒▒▒▒▒░░░░░░░░»── V. 0.0.0a ──«░░░░░░░░▒▒▒▒▒▒▒▓▓▓▓▓▓\n"
@@ -183,17 +184,13 @@ def verify_git():
         wait()
     return succ
 
-GIT_INSTALLED = verify_git()
-
 def main():
     play_intro()
     if GIT_INSTALLED:
-        dic = {
-            "start":"Start Lum-Bot",
-            "restart": "Start Lum-Bot With Auto Restart in case of an Issue",
-            "update" : "Update Lum-Bot",
-            "exit" : "Exit the Launcher"
-        }
+        dic = OrderedDict([("start", "Start Lum-Bot"),
+		("restart", "Start Lum-Bot With Auto Restart in case of an Issue"),
+		("update","Update Lum-Bot"),
+		("exit","Exit the launcher")])
         
     else:
         dic = {
@@ -217,7 +214,7 @@ def main():
 if __name__ == "__main__":
     if IS_WINDOWS:
         os.system("TITLE Lum-Bot for Discord")
-
+	
     abspath = os.path.abspath(__file__)
     dirname = os.path.dirname(abspath)
 
@@ -230,7 +227,9 @@ if __name__ == "__main__":
         if NORMIE_MODE:
             wait()
         exit(1)    
-
+	
+    GIT_INSTALLED = verify_git()
+	
     #check thru args
     if NORMIE_MODE:
         main()
