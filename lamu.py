@@ -16,6 +16,9 @@ class Lum(commands.Bot):
         self.version = BOT_VERSION
         self.intro_played = False
 
+    def allowed(self, message):
+        return False
+
 def playIntro():
     import cogs.util.intro as intro
     intro.play(BOT_VERSION)
@@ -35,16 +38,22 @@ def main(Lum):
     #yield from Lum.connect()  --Support for Voice Channels
 
 def initialize(bot=Lum):
-    lum = bot()
+    bot = bot()
     #insert bot declarations here
 
-    @lum.event
+    @bot.event
     async def on_ready():
-        if not lum.intro_played:
+        if not bot.intro_played:
             playIntro()
-            lum.intro_played = True
+            bot.intro_played = True
 
-    return lum
+    @bot.event
+    async def on_message(message):
+        if bot.allowed(message):
+            pass
+
+
+    return bot
 
 if __name__ == "__main__":
     loop = asyncio.get_event_loop()
