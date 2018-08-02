@@ -4,11 +4,13 @@
 import json
 
 class joho:
-    def __init__(self):
-        pass
 
     def load(self, path):
         with open(path, "r", encoding="utf-8") as f:
-            return json.load(f)
-        
-        
+            return json.load(f)     
+    
+    def save(self, dicti, path):
+
+        with open(path, "w", encoding="utf-8") as f:
+            json.dump(dicti,f)
+            

@@ -8,17 +8,25 @@ except ImportError:
     input("Press 'Enter' to continue... ")
     exit(1)
 
-BOT_VERSION = "0.0.0a" #Remember to Change this
+BOT_VERSION = "0.0.0b" #Remember to Change this
 
 class Lum(commands.Bot):
+    
     def __init__(self, *args, **kwargs):
-        print("Class Lum: Constructing")
+
+        def prefix_man(bot, message):
+            return self.settings.prefixes
+
         self.settings = Settings()
         self.version = BOT_VERSION
         self.intro_played = False
-        print("Class Lum: Constructed")
+        try:
+            super().__init__(*args,command_prefix=prefix_man, **kwargs)
+        except Exception as e:
+            print(e)
 
     def filter(self, message):
+        """This should work"""
         return False
         
 
@@ -32,21 +40,28 @@ def setup(Settings):
     first_run = Settings.bot_settings == Settings.default_settings
 
     if first_run:
-        #Todo add a token info adder
-        pass
+        print("Would you like to use a token for your bot? Y/N")
+        if input("> ").strip().lower() == "y":
+            print("Please Paste Your Token: ")
+            preT = input("> ")
+            if "@" not in preT and len(preT) >= 50:
+                Settings.bot_settings["TOKEN"] = preT
+            else:
+                print("I don't think that is a valid Token")
+
+    Settings.save()
 
 def main(bot):
-    print("Infiniloop started")
     setup(bot.settings)
 
     print("Determining if login should do.")
-    if Lum.settings.login_cred:
-        print("Logging in!")
-        yield from Lum.login(*Lum.settings.login_cred)
-    #yield from Lum.connect()  --Support for Voice Channels
+    if not bot.settings.bot_settings["TOKEN"] == "":
+        yield from bot.login(bot.settings.bot_settings["TOKEN"])
+
+    yield from bot.connect()  #--Support for Voice Channels
 
 def initialize(bot_class=Lum):
-    print("Initializing Bot!")
+
     bot = bot_class()
     #insert bot declarations here
 
@@ -58,31 +73,30 @@ def initialize(bot_class=Lum):
 
     @bot.event
     async def on_message(message):
-        if bot.fliter(message):
-            pass
+        if bot.filter(message):
+            print("wah")
     
-    print("Returning initialized lum!")
     return bot
 
 
 if __name__ == "__main__":
+    print("Running "+discord.__version__)
     loop = asyncio.get_event_loop()
-    print("Gotten Loop")
     #Initialize lum here
     Lamu = initialize()
     try:
-        print("Starting infinite loop!")
         loop.run_until_complete(main(Lamu))
     except KeyboardInterrupt:
         #Logout of discord
+        print("Keyboard Interrupt Acknowledged")
         loop.run_until_complete(Lamu.logout())
     except discord.LoginFailure:
         print("Login error, would you like to reset?")
         if input("> ").lower().strip() == "reset":
             Lamu.settings.login_cred = None
-    except Exception:
+    except Exception as e:
         #Logout of Discord
-        pass
+        print(e)
         loop.run_until_complete(Lamu.logout())
 
     finally:
