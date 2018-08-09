@@ -16,7 +16,7 @@ class Lum(commands.Bot):
         def prefix_man(bot, message):
             return self.settings.prefixes
 
-        self.settings = Settings()
+        self.settings = Settings(form="bot")
         self.version = self.settings.version
         self.intro_played = False
 
@@ -41,11 +41,6 @@ class Lum(commands.Bot):
     async def shutdown(self):
         self.settings.restart = False
         await self.logout()
-        
-
-def playIntro():
-    import cogs.util.intro as intro
-    intro.play(BOT_VERSION)
     
 def setup(Settings):
     print("Setting up Settings")
@@ -72,7 +67,7 @@ async def main(bot):
         await bot.login(bot.settings.token)
     else:
         raise RuntimeError
-    await bot.connect()
+    bot.voice = await bot.connect()
 
 def initialize(bot_class=Lum):
 
@@ -99,8 +94,6 @@ if __name__ == "__main__":
     loop = asyncio.get_event_loop()
     #Initialize lum here
     Lamu = initialize()
-    #playIntro()
-    Lamu.intro_played = True
     try:
         loop.run_until_complete(main(Lamu))
     except KeyboardInterrupt:
