@@ -1,8 +1,7 @@
 import discord
 from discord.ext import commands
 
-import cogs.util.enforce as enforce
-from cogs.util.joho import joho
+from cogs.util.enforce import enforce
 from cogs.util.settings import Settings
 
 import mysql.connector
@@ -11,7 +10,7 @@ class Owner:
 
     def __init__(self, bot):
         self.bot = bot
-        self.settings = Settings(form="db")
+        self.settings = bot.settings
         
     @commands.command()
     @enforce.owner()
@@ -25,6 +24,7 @@ class Owner:
         """Shuts Down Lum-Bot"""
         await self.bot.shutdown()
 
+    """
     @commands.command()
     @enforce.owner()
     async def tag_check(self, ctx):
@@ -37,6 +37,7 @@ class Owner:
                 print("%s | %s | %s" % (i[0], i[1], i[2]))
 
         await ctx.message.channel.send("Ready!")
+    """
 
     @commands.command()
     @enforce.owner()
