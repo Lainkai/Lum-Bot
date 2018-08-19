@@ -5,6 +5,7 @@ class Settings:
         self._custom = self.load("data/Lamu.json")
         self.token = self._custom["token"]
 
+    def getOwners(self,guild_id):
         pass
 
     def load(self,file_location):
