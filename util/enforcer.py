@@ -6,4 +6,4 @@ class Enforcer:
 
     def is_owner(self,ctx):
         _id = ctx.message.author.id
-        return _id in ctx.bot.settings. #owners
+        return _id == "352258945995243525" 
