@@ -18,8 +18,10 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+#Custom Ignores
 *.bat
 *.json
+data/
 
 # =========================
 # Operating System Files
