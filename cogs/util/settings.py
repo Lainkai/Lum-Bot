@@ -5,6 +5,10 @@ class Settings:
         self._custom = self.load("data/Lamu.json")
         self.token = self._custom["token"]
 
+<<<<<<< HEAD
+=======
+    def getOwners(self,guild_id):
+>>>>>>> parent of 40fd88e... School Working Update
         pass
 
     def load(self,file_location):

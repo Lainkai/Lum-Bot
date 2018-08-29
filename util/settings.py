@@ -10,25 +10,20 @@ class Settings:
 		try:
 			self._data = self._load()
 		except OSError:
-			self._data = object._default_settings 
+			self._data = object.default_settings 
 			with open(file_location, "w") as f:
 				f.write(self._data)
-	
-	def load(self, data):
-		data = self._load(self._file_location)
-		return[data]
-	
-	def set(self,set_name, data):
-		self._data[set_name] = data
-		self.save()
 		
+	
+	def load(self, guild, data):
+		data = self._load(self._file_location)
+		return[guild][data]
+	
+	
+
     def _load(self,file_location):
-        """Loads the JSON file for use"""
+        """Returns 'ded' at the moment"""
         if file_location.endswith(".json"):
             with open(file_location) as f:
                 return json.load(f)
 		
-		
-	def save(self):
-		with open(self._file_location) as f:
-			f.write(json.dumps(self._data))
