@@ -34,7 +34,7 @@ class LumBot(commands.Bot):
 		return data
 
 def load_cogs(bot):
-    bot.load_extension("core.owner")
+    bot.load_extension("cogs.owner")
 
 async def start(bot):
 	try:

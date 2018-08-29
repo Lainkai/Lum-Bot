@@ -1,8 +1,8 @@
 import discord
 from discord.ext import commands
 
-from .util.enforcer import enforcer
-from .util.settings import Settings
+from cogs.util.enforce import enforce
+from cogs.util.settings import Settings
 
 import mysql.connector
 
@@ -13,20 +13,20 @@ class Owner:
         self.settings = bot.settings
         
     @commands.command()
-    @enforcer.owner()
+    @enforce.owner()
     async def restart(self, ctx):
         """Restarts Lum-Bot For Updates"""
         await self.bot.restart()
     
     @commands.command()
-    @enforcer.owner()
+    @enforce.owner()
     async def shutdown(self, ctx):
         """Shuts Down Lum-Bot"""
         await self.bot.shutdown()
 
     """
     @commands.command()
-    @enforcer.owner()
+    @enforce.owner()
     async def tag_check(self, ctx):
         async with ctx.message.channel.typing():
             print("Checking Tags")
@@ -40,7 +40,7 @@ class Owner:
     """
 
     @commands.command()
-    @enforcer.owner()
+    @enforce.owner()
     async def tag(self, ctx, **kwargs):
         self.current_img = self.imgs.pop(0)
         embed = discord.Embed(title="Gif "+str(self.im_len-len(self.imgs)))
