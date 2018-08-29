@@ -8,15 +8,20 @@ from util.settings import Settings
 
 class LumBot(commands.Bot):
     def __init__(self):
-        self.settings = Settings(LumBot.__class__)
+		def_settings = {"token":None}
+		self.settings = Settings(self.__class__, def_settings)		
+		def get_prefix(bot, message):
+			return message.Guild
+	
         self.restart = False
+		self.token = self.settings.get("token")
         super().__init__(get_prefix, pm_help=True)
 
     async def on_message(self, message):
         await self.process_commands(message)
 
     async def on_ready(self):
-        print("Ready-だちゃ")
+        print("Ready-だちゃ!")
 
 
 def load_cogs(bot):
@@ -24,10 +29,9 @@ def load_cogs(bot):
 
 async def start(bot):
     try:
-        await bot.login(bot.settings.token)
-    except Exception:
-        #Add A smarter thing that tells you that you didn't provide a good token
-		pass
+        await bot.login(bot.token)
+    except discord.LoginFailure:
+        print("Oops! I think you gave me an invalid token!")
     await bot.connect()
 
 def init():
