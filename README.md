@@ -1,2 +1,2 @@
 # Lum-Bot
-A bot, with your favorite characters.
+A bot that serves gifs of your waifu of choice.
