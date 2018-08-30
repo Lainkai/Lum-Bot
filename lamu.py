@@ -38,8 +38,8 @@ async def start(bot):
 def init():
     bot = LumBot()
     load_cogs(bot)
-
-    if bot.
+	
+	#if bot.
 
     @bot.command()
     async def ping(ctx):
