@@ -1,10 +1,12 @@
 import discord
 from discord.ext import commands
 
-from cogs.util.enforce import enforce
+from cogs.util.enforce import Enforce
 from cogs.util.settings import Settings
 
 import mysql.connector
+
+enforce = Enforce()
 
 class Owner:
 

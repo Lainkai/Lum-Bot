@@ -4,17 +4,17 @@ import logging
 import discord
 from discord.ext import commands
 
-from util.settings import Settings
+from cogs.util.settings import Settings
 
 class LumBot(commands.Bot):
     def __init__(self):
-		def_settings = {"token":None}
-		self.settings = Settings(self.__class__, def_settings)		
-		def get_prefix(bot, message):
-			return message.Guild
-	
+        def_settings = {"token":None}
+        self.settings = Settings(self.__class__, def_settings)		
+        def get_prefix(bot, message):
+            return message.Guild
+
         self.restart = False
-		self.token = self.settings.get("token")
+        self.token = self.settings.get("token")
         super().__init__(get_prefix, pm_help=True)
 
     async def on_message(self, message):
@@ -32,11 +32,14 @@ async def start(bot):
         await bot.login(bot.token)
     except discord.LoginFailure:
         print("Oops! I think you gave me an invalid token!")
+        print("Would you like to reset it?")
     await bot.connect()
 
 def init():
     bot = LumBot()
     load_cogs(bot)
+
+    if bot.
 
     @bot.command()
     async def ping(ctx):
