@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 
-from cogs.util.enforce import Enforce
+from cogs.util.checks import Enforce
 from cogs.util.settings import Settings
 
 import mysql.connector
