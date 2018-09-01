@@ -4,8 +4,6 @@ from discord.ext import commands
 from cogs.util.checks import Enforce
 from cogs.util.settings import Settings
 
-import mysql.connector
-
 enforce = Enforce()
 
 class Owner:
@@ -39,7 +37,7 @@ class Owner:
                 print("%s | %s | %s" % (i[0], i[1], i[2]))
 
         await ctx.message.channel.send("Ready!")
-    """
+    
 
     @commands.command()
     @enforce.owner()
@@ -50,7 +48,7 @@ class Owner:
         embed.add_field(name ="Tags:",value =self.current_img[1])
         embed.add_field(name ="ID", value =self.current_img[2])
         await ctx.message.channel.send(embed=embed)
-
+"""
 def setup(bot):
     o = Owner(bot)
     bot.add_cog(o)

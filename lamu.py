@@ -9,7 +9,7 @@ from cogs.util.settings import Settings
 class LumBot(commands.Bot):
     def __init__(self):
         def_settings = {"token":None}
-        self.settings = Settings(self.__class__, def_settings)		
+        self.settings = Settings(self, def_settings)		
         def get_prefix(bot, message):
             return message.Guild
 
