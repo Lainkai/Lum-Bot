@@ -22,6 +22,7 @@ $RECYCLE.BIN/
 *.bat
 *.json
 data/
+__pycache__/
 
 # =========================
 # Operating System Files
