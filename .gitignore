@@ -24,7 +24,7 @@ $RECYCLE.BIN/
 data/
 <<<<<<< HEAD
 <<<<<<< HEAD
-*__pycache__/
+__pycache__/
 =======
 test.py
 simulamu.py
