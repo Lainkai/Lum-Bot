@@ -23,7 +23,12 @@ $RECYCLE.BIN/
 *.json
 data/
 <<<<<<< HEAD
+<<<<<<< HEAD
 *__pycache__/
+=======
+test.py
+simulamu.py
+>>>>>>> 7dc4854f5f9c75a0c1636596bdf5ef24d3160925
 =======
 test.py
 simulamu.py
