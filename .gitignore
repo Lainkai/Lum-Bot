@@ -23,6 +23,7 @@ $RECYCLE.BIN/
 *.json
 data/
 __pycache__/
+*.pyc
 test.py
 simulamu.py
 
