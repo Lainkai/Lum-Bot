@@ -70,6 +70,7 @@ class Settings:
 
 	def store(self,key,data):
 		self._data[key] = data
+		self.save()
 		return data
 				
 	def save(self):

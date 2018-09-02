@@ -4,22 +4,23 @@ from discord.ext import commands
 from cogs.util.checks import Enforce
 from cogs.util.settings import Settings
 
-enforce = Enforce()
-
 class Owner:
+	
+	
 
     def __init__(self, bot):
         self.bot = bot
         self.settings = bot.settings
+		self.enforce = Enforce(bot)
         
     @commands.command()
-    @enforce.owner()
+    @self.enforce.owner()
     async def restart(self, ctx):
         """Restarts Lum-Bot For Updates"""
         await self.bot.restart()
     
     @commands.command()
-    @enforce.owner()
+    @self.enforce.owner()
     async def shutdown(self, ctx):
         """Shuts Down Lum-Bot"""
         await self.bot.shutdown()
