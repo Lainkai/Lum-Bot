@@ -8,11 +8,11 @@ from cogs.util.settings import Settings
 
 class LumBot(commands.Bot):
 	def __init__(self):
-		def_settings = {"token":None,"multi-server":True}
+		self.awaiting_response = False
+		def_settings = {"token":None,"guilds":{}}
 		self.settings = Settings(self, def_settings)		
 		def get_prefix(bot, message):
-			#return message.guild
-			return ";"
+			return self.getGuildSettings(message){"prefix"}
 
 		self.restart = False
 		
@@ -26,10 +26,15 @@ class LumBot(commands.Bot):
 		
 	async def shutdown(self):
 		await self.logout()
+		exit(0)
 		
 	async def restart():
 		await shutdown()
 		exit(81)
+		
+	async def getGuildSettings(self, message) {
+		return guildData = self.settings.get("guilds")[message.guild.id]
+	}
 		
 	def token(self, token=None):
 		if token is None:
