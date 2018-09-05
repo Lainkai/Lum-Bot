@@ -19,7 +19,11 @@ class LumBot(commands.Bot):
 		super().__init__(get_prefix, pm_help=True)
 
 	async def on_message(self, message):
-		await self.process_commands(message)
+		if not self.settings("bot-interactive"):
+			if not message.author.bot:
+				await self.process_commands(message)	
+		else:
+			await self.process_commands(message)
 
 	async def on_ready(self):
 		print("Ready-だちゃ!")
@@ -90,6 +94,6 @@ if __name__ == "__main__":
 		exit(1)
 	finally:
 		if bot.restart:
-			exit(78)
+			exit(81)
 		else:
 			exit(0)

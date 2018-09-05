@@ -1,69 +1,53 @@
 import json
 import os
 
+from .joho import Joho
+
 class Settings:
 	"""A file managing class that is pretty trash at the moment. It just handles file writing and data saving."""
 	def __init__(self,object, def_settings = {}):
-		supplanter = type(object).__name__+".json"
-		self._file_location  = "data/settings/"+ supplanter
-		self._data = self._load(def_settings , supplanter)
-		self.default = False
 		
-		def old_detector(def_settings):
-			#print("Detecting Old Settings")
-			newSettings = False
-			
-			for k in self._data:
-				#print(k)
-				if k not in def_settings:
-					#print("Old Settings found")
-					newSettings = True
-			
-			#print("Checking new Settings")
-			if newSettings:
-			
-				with open(self._file_location+"_old_","w",encoding="utf8") as f:
-					json.dump(self._data,f,ensure_ascii=False)
-					#print("Dumping old Data")
-					
-				with open(self._file_location+"","w",encoding="utf8") as f:
-					json.dump(def_settings,f,ensure_ascii=False)
-					#print("Loading New Data")
-					
-				temp = self._data
-				self._data = def_settings
-				for k in list(temp):
-					if k in self._data:
-						self._data[k] = temp[k]
-						#print("Loading reloadable data")
-						self.save()
-						return
-						
-			#SECTION TWO -- Append any non-existant Setting
-			for i in def_settings:
-				if i not in self._data:
-					self._data[i] = def_settings[i]
-					self.save()
-				
-						
-			
-				
-		old_detector(def_settings)
-
-	def _load(self,def_settings,supplanter):
-		"""Reads file data """
-		#print("Checking DIRS")
-		os.makedirs(self._file_location.replace(supplanter,""), exist_ok=True)
+		joho = Joho()
+		
+		supplanter = type(object).__name__+".json"
+		dir = "data/settings/"
+		self._file_location = dir + supplanter
+		
+		#Checks if file location is real 
+		os.makedirs(dir, exist_ok=True)
 		try:
-			#Tries to load the file if the location exists
-			with open(self._file_location, encoding="utf8") as f:
-				#print("loading data")
-				return json.load(f)
-		except (FileNotFoundError, json.decoder.JSONDecodeError) as e:
-			with open(self._file_location, "w+",encoding="utf8") as f:
-				#print("Writing default Data")
-				json.dump(def_settings, f, ensure_ascii=False)
-				return def_settings
+			self._data = joho.load(self._file_location)
+		except FileNotFoundError:
+			self._data = def_settings
+			joho.write(self._file_location, def_settings)
+		
+		newSettings = False
+		
+		for k in self._data:
+		
+			if k not in def_settings:
+				newSettings = True
+		
+		if newSettings:
+			#Saves the old settings for recovery
+			joho.write(self._file_location+"_old_", self._data)
+				
+			#Writes the new Settings
+			joho.write(self._file_location, def_settings)	
+				
+			temp = self._data
+			self._data = def_settings
+			for k in list(temp):
+				if k in self._data:
+					self._data[k] = temp[k]
+					self.save()
+					return
+					
+		for i in def_settings:
+			if i not in self._data:
+				self._data[i] = def_settings[i]
+				self.save()
+		
 
 	def get(self,key):
 		return self._data[key]
@@ -74,6 +58,6 @@ class Settings:
 		return data
 				
 	def save(self):
-		with open(self._file_location, "w+", encoding="utf8") as f:
-			json.dump(self._data,f,ensure_ascii=False)
+		joho = Joho()
+		joho.write(self._file_location, self._data)
 

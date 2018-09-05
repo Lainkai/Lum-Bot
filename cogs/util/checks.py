@@ -9,7 +9,7 @@ class Enforce:#Add some doodad that does a thing so that I can automatically upd
 
 		def is_owner(self,ctx):
 				_id = ctx.message.author.id
-				if self.settings["multi-server"]:
+				if len(self.settings["guilds"]) > 1:
 					return _id == ctx.bot.owner.id
 				else:
 					try:
