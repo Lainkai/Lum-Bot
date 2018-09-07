@@ -24,6 +24,12 @@ class Owner:
     async def shutdown(self, ctx):
         """Shuts Down Lum-Bot"""
         await self.bot.shutdown()
+		
+	@commands.command()
+	@self.enforce.owner()
+	async def set_prefix(self,ctx):
+		"""Sets my prefix for the guild"""
+		self.bot.settings["guilds"]
 
     """
     @commands.command()

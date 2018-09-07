@@ -9,10 +9,15 @@ from cogs.util.settings import Settings
 class LumBot(commands.Bot):
 	def __init__(self):
 		self.awaiting_response = False
+		#add a guild settings manager
 		def_settings = {"token":None,"guilds":{}}
 		self.settings = Settings(self, def_settings)		
 		def get_prefix(bot, message):
-			return self.getGuildSettings(message){"prefix"}
+		
+			try:
+				return self.getGuildSettings(message){"prefix"}
+			except KeyError:
+				return ";lamu;"
 
 		self.restart = False
 		
@@ -36,7 +41,7 @@ class LumBot(commands.Bot):
 		await shutdown()
 		exit(81)
 		
-	async def getGuildSettings(self, message) {
+	def getGuildSettings(self, message) {
 		return guildData = self.settings.get("guilds")[message.guild.id]
 	}
 		
