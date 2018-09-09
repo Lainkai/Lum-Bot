@@ -49,15 +49,17 @@ class Settings:
 				self.save()
 		
 
-	def get(self,key):
-		return self._data[key]
-
-	def store(self,key,data):
-		self._data[key] = data
-		self.save()
-		return data
+	def __call__(self, settingName, newData=None):
+		"""Processes Setting data, if newData is set, it overwrites (and saves) the new settings"""
+		if newData is None:
+			return self._data[settingName]
+		else:
+			self._data[settingName] = newData
+			self.save()
+			return newData
+		
 				
 	def save(self):
 		joho = Joho()
+		joho.write(self._file_location+"_old_", joho.load(self._file_location))
 		joho.write(self._file_location, self._data)
-

@@ -1,23 +1,25 @@
 from discord.ext import commands
 
-class Enforce:#Add some doodad that does a thing so that I can automatically update the owners
-		def __init__(bot):
-			self.bot = both
-		def owner(self):
-				#Something that calls a callable so that it calls for a fresco list of a guilds owners
-				return commands.check(self.is_owner)
+import cogs.util.joho as joho
 
-		def is_owner(self,ctx):
-				_id = ctx.message.author.id
-				if len(self.settings["guilds"]) > 1:
-					return _id == ctx.bot.owner.id
-				else:
-					try:
-						#Temporary Solution
-						owner = ctx.guild.owner
-						return owner == _id
-					except AttributeError:
-						return ctx.bot.owner.id == _id
-				
-				
-				
+async def is_owner(ctx):
+		_id = ctx.message.author.id
+		if len(_readSettings("LumBot")["guilds"]) > 1:
+			print("multiserver bot owner checked")
+			return _id == ctx.bot.owner_id
+		else:
+			print("single server bot owner checked")
+			try:
+				#Temporary Solution
+				owner = ctx.guild.owner_id
+				return owner == _id
+			except AttributeError:
+				return ctx.bot.owner_id == _id
+
+def owner():
+	#Something that calls a callable so that it calls for a fresco list of a guilds owners
+	return commands.check(is_owner)
+
+def _readSettings(objectString):
+	reader = joho.Joho()
+	return reader.load("data/settings/"+objectString+".json")

@@ -10,22 +10,23 @@ class LumBot(commands.Bot):
 	def __init__(self):
 		self.awaiting_response = False
 		#add a guild settings manager
-		def_settings = {"token":None,"guilds":{}}
+		def_settings = {"token":None,"guilds":{},"bot-interactive":False}
 		self.settings = Settings(self, def_settings)		
 		def get_prefix(bot, message):
 		
 			try:
-				return self.getGuildSettings(message){"prefix"}
+				return self.getGuildSettings(message)["prefix"]
 			except KeyError:
-				return ";lamu;"
+				return ";lamu; "
 
-		self.restart = False
+		self.restarting = False
 		
 		super().__init__(get_prefix, pm_help=True)
 
 	async def on_message(self, message):
 		if not self.settings("bot-interactive"):
 			if not message.author.bot:
+				print("Verified not a bot!")
 				await self.process_commands(message)	
 		else:
 			await self.process_commands(message)
@@ -33,24 +34,15 @@ class LumBot(commands.Bot):
 	async def on_ready(self):
 		print("Ready-だちゃ!")
 		
-	async def shutdown(self):
-		await self.logout()
-		exit(0)
-		
-	async def restart():
-		await shutdown()
-		exit(81)
-		
-	def getGuildSettings(self, message) {
-		return guildData = self.settings.get("guilds")[message.guild.id]
-	}
+	def getGuildSettings(self, message):
+		return self.settings("guilds")[message.guild.id]
 		
 	def token(self, token=None):
 		if token is None:
-			return self.settings.get("token")
+			return self.settings("token")
 		
 		if len(token)>=50:
-			self.settings.store("token", token)
+			self.settings("token", token)
 			return True
 		else:
 			#cls
@@ -98,7 +90,7 @@ if __name__ == "__main__":
 	except Exception:
 		exit(1)
 	finally:
-		if bot.restart:
+		if bot.restarting:
 			exit(81)
 		else:
 			exit(0)
