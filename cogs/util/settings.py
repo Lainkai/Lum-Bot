@@ -49,14 +49,17 @@ class Settings:
 				self.save()
 		
 
-	def __call__(self, settingName, newData=None):
+	def __call__(self, settingName=None, newData=None):
 		"""Processes Setting data, if newData is set, it overwrites (and saves) the new settings"""
 		if newData is None:
 			return self._data[settingName]
-		else:
+		else if newData is not None:
 			self._data[settingName] = newData
 			self.save()
 			return newData
+		else:
+			return self._data
+			
 		
 				
 	def save(self):

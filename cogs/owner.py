@@ -8,7 +8,6 @@ class Owner:
 
 	def __init__(self, bot):
 		self.bot = bot
-		self.settings = bot.settings
 		
 	@commands.command()
 	@checks.owner()
@@ -27,9 +26,10 @@ class Owner:
 	@checks.owner()
 	async def set_prefix(self,ctx):
 		"""Sets my prefix for the guild"""
-		self.bot.settings["guilds"]
+		bot.guildManager(ctx.guild.id).prefix(ctx.args[0])
+		
 
-	"""
+"""
 	@commands.command()
 	@enforce.owner()
 	async def tag_check(self, ctx):

@@ -5,19 +5,20 @@ import discord
 from discord.ext import commands
 
 from cogs.util.settings import Settings
+from cogs.util.guildManager import GuildManager
 
 class LumBot(commands.Bot):
 	def __init__(self):
 		self.awaiting_response = False
 		#add a guild settings manager
-		def_settings = {"token":None,"guilds":{},"bot-interactive":False}
-		self.settings = Settings(self, def_settings)		
+		def_settings = {"token":None,"bot-interactive":False}
+		self.settings = Settings(self, def_settings)	'
+		
+		self.guildManager = GuildManager()
+		
 		def get_prefix(bot, message):
 		
-			try:
-				return self.getGuildSettings(message)["prefix"]
-			except KeyError:
-				return ";lamu; "
+			return self.guildManager(message.guild.id)
 
 		self.restarting = False
 		
@@ -33,9 +34,6 @@ class LumBot(commands.Bot):
 
 	async def on_ready(self):
 		print("Ready-だちゃ!")
-		
-	def getGuildSettings(self, message):
-		return self.settings("guilds")[message.guild.id]
 		
 	def token(self, token=None):
 		if token is None:
