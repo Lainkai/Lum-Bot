@@ -3,7 +3,7 @@ from .settings import Settings
 class GuildManager:
 	def __init__(self):
 		self._guildId = 0
-		self.prefix=";lamu;"
+		self._prefix=";lamu;"
 		self.settings = Settings(self,{})
 		
 		
@@ -18,6 +18,7 @@ class GuildManager:
 		if prefix is None:
 			return self.prefix
 		else:
-			self.prefix = prefix
+			self._prefix = prefix
+			self.settings("prefix", prefix)
 			return prefix
 	
