@@ -51,9 +51,9 @@ class Settings:
 
 	def __call__(self, settingName=None, newData=None):
 		"""Processes Setting data, if newData is set, it overwrites (and saves) the new settings"""
-		if newData is None:
+		if newData is None and settingName is not None:
 			return self._data[settingName]
-		elif newData is not None:
+		elif newData is not None and settingName is not None:
 			self._data[settingName] = newData
 			self.save()
 			return newData
