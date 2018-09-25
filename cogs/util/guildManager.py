@@ -12,7 +12,7 @@ class GuildManager:
 		if self._guildId not in self.settings():
 			self.settings(self._guildId, {"prefix":";lamu;","co-owners":None})
 		
-		return self
+		return self.settings(self._guildId)["prefix"]
 		
 	def prefix(self, prefix=None):
 		if prefix is None:
