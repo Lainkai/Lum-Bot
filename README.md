@@ -1,2 +1,2 @@
 # Lum-Bot
-A bot, with your favorite characters.
+An modifiable discord bot that can admin, manage, or just be fun.

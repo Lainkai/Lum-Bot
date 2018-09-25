@@ -53,7 +53,7 @@ class Settings:
 		"""Processes Setting data, if newData is set, it overwrites (and saves) the new settings"""
 		if newData is None:
 			return self._data[settingName]
-		else if newData is not None:
+		elif newData is not None:
 			self._data[settingName] = newData
 			self.save()
 			return newData

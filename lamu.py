@@ -12,7 +12,7 @@ class LumBot(commands.Bot):
 		self.awaiting_response = False
 		#add a guild settings manager
 		def_settings = {"token":None,"bot-interactive":False}
-		self.settings = Settings(self, def_settings)	'
+		self.settings = Settings(self, def_settings)
 		
 		self.guildManager = GuildManager()
 		
@@ -51,10 +51,11 @@ def load_cogs(bot):
 	bot.load_extension("cogs.owner")
 
 async def start(bot):
+	
 	try:
 		await bot.login(bot.token())
 	except discord.LoginFailure:
-		print("Oops! I think you gave me an invalid token!")
+		print("Oops! You gave me an invalid token!")
 		print("Would you like to reset it?")
 	await bot.connect()
 
@@ -63,12 +64,13 @@ def init():
 	load_cogs(bot)
 	
 	if bot.token() is None:
-		valid = False
-		while not valid:
+		while True:
 			print("Can I have my token please?")
 			token = input(": ")
-			print(bot.token(token))
-			valid = bot.token(token)
+			if bot.token(token) is False:
+				continue
+			else:
+				break
 
 	@bot.command()
 	async def ping(ctx):
