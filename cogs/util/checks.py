@@ -4,7 +4,7 @@ import cogs.util.joho as joho
 
 async def is_owner(ctx):
 		_id = ctx.message.author.id
-		if len(_readSettings("LumBot")["guilds"]) > 1:
+		if len(_readSettings("GuildManager")) > 1:
 			print("multiserver bot owner checked")
 			return _id == ctx.bot.owner_id
 		else:
