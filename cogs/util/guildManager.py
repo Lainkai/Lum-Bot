@@ -17,7 +17,6 @@ class GuildManager:
 		if prefix is None:
 			return self.prefix
 		else:
-			self._prefix = prefix
 			self.settings("prefix", prefix)
 			return prefix
 	

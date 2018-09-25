@@ -18,7 +18,7 @@ class LumBot(commands.Bot):
 		
 		def get_prefix(bot, message):
 		
-			return self.guildManager(message.guild.id)
+			return self.guildManager(message.guild.id).prefix()
 
 		self.restarting = False
 		
