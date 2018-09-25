@@ -9,9 +9,9 @@ class GuildManager:
 		
 	def __call__(self, guild_id):
 		if guild_id not in self.settings():
-			self.settings(self._guildId, {"prefix":self.prefix,"co-owners":None})
+			self.settings(guild_id, {"prefix":self.prefix,"co-owners":None})
 		
-		return self.settings(self._guildId)["prefix"]
+		return self.settings(guild_id)["prefix"]
 		
 	def prefix(self, prefix=None):
 		if prefix is None:
