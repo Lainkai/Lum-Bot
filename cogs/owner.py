@@ -26,7 +26,7 @@ class Owner:
 	@checks.owner()
 	async def set_prefix(self,ctx):
 		"""Sets my prefix for the guild"""
-		bot.guildManager(ctx.guild.id).prefix(ctx.args[0])
+		self.bot.guildManager(ctx.guild.id).prefix(ctx.args[0])
 		
 
 """
