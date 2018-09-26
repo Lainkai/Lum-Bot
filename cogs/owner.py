@@ -20,13 +20,16 @@ class Owner:
 	@checks.owner()
 	async def shutdown(self, ctx):
 		"""Shuts Down Lum-Bot"""
+		await ctx.message.channel.send("Bye! :wave: ")
 		await self.bot.logout()
 		
 	@commands.command()
 	@checks.owner()
-	async def set_prefix(self,ctx):
+	async def set_prefix(self,ctx,arg):
 		"""Sets my prefix for the guild"""
-		self.bot.guildManager(ctx.guild.id).prefix(ctx.args[0])
+		print(arg)
+		self.bot.guildManager(ctx.guild.id).prefix(arg)
+		await ctx.message.channel.send("The prefix is now set to %s !" % self.bot.guildManager(ctx.guild.id).prefix())
 		
 
 """

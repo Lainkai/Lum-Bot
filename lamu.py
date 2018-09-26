@@ -18,7 +18,7 @@ class LumBot(commands.Bot):
 		
 		def get_prefix(bot, message):
 		
-			return bot.guildManager(message.guild.id).prefix()
+			return bot.guildManager(str(message.guild.id)).prefix()
 
 		self.restarting = False
 		
@@ -57,6 +57,13 @@ async def start(bot):
 	except discord.LoginFailure:
 		print("Oops! You gave me an invalid token!")
 		print("Would you like to reset it?")
+		option = input('> ')
+		if option.strip().lower()[:1] == "y":
+			bot.settings("token", None)
+			bot.init()
+		else:
+			exit(1)
+
 	await bot.connect()
 
 def init():

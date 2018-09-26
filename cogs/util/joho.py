@@ -11,7 +11,7 @@ class Joho:
 			
 	def write(self, loc, data):
 		"""Writes a new file in utf-8. Takes a location and data"""
-		with open(loc, "w+",encoding="utf8") as f:
+		with open(loc, "w",encoding="utf8") as f:
 			#print("Writing default Data")
 			json.dump(data, f, ensure_ascii=False)
 			return data

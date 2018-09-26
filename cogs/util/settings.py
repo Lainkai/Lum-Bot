@@ -25,7 +25,7 @@ class Settings:
 		
 		for k in self._data:
 		
-			if k not in def_settings:
+			if k not in def_settings and def_settings.__len__() > 0:
 				newSettings = True
 		
 		if newSettings:
@@ -49,16 +49,23 @@ class Settings:
 				self.save()
 		
 
-	def __call__(self, settingName=None, newData=None):
-		"""Processes Setting data, if newData is set, it overwrites (and saves) the new settings"""
-		if newData is None and settingName is not None:
-			return self._data[settingName]
-		elif newData is not None and settingName is not None:
-			self._data[settingName] = newData
-			self.save()
-			return newData
+	def __call__(self, settingName=None, newData=None, remove=False):
+		"""Processes Setting data, by iterating over the passed data type, and if newData is set, the selected option will be overwritten."""
+		
+		if settingName is not None:
+			if remove:
+				del self._data[settingName]
+			else:
+				if newData is not None:
+					self._data[settingName] = newData
+					self.save()
+				return self._data[settingName]
 		else:
 			return self._data
+
+		
+
+		
 			
 		
 				
