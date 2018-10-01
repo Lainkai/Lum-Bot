@@ -94,7 +94,9 @@ if __name__ == "__main__":
 		loop.run_until_complete(start(bot))
 	except KeyboardInterrupt:
 		loop.run_until_complete(bot.logout())
-	except Exception:
+	except Exception as e:
+		print(type(e))
+		print(e)
 		exit(1)
 	finally:
 		if bot.restarting:
